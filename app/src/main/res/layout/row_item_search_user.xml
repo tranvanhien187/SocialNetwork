@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:outlineSpotShadowColor="@color/white"
+        app:cardCornerRadius="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/linear_row_item_search"
+                android:layout_toLeftOf="@+id/linear_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_row_item_search_avatar"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"/>
+                <TextView
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:id="@+id/txt_row_item_search_name"
+                    android:textSize="20dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginRight="5dp"
+                android:id="@+id/linear_status"
+                android:layout_alignParentEnd="true"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true">
+                <ImageView
+                    android:src="@drawable/ic_friend"
+                    android:id="@+id/img_row_item_search_status_add_friend"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="30dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true" />
+                <ImageView
+                    android:visibility="gone"
+                    android:src="@drawable/ic_cancel_add"
+                    android:id="@+id/img_row_item_search_status_cancel_add_friend"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="30dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true" />
+                <ImageView
+                    android:visibility="gone"
+                    android:src="@drawable/ic_message"
+                    android:id="@+id/img_row_item_search_status_send_message"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="30dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

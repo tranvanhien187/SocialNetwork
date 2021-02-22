@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_cloud"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MessageActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:background="@color/fakebook"
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/tool_bar"
+        android:layout_above="@+id/relative_layout"
+        android:id="@+id/recycle_view_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/relative_layout"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:paddingLeft="20dp"
+            android:id="@+id/edt_type_message"
+            android:layout_toLeftOf="@+id/ibtn_send_message"
+            android:hint="Type a message ..."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ImageButton
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_send"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/ibtn_send_message"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

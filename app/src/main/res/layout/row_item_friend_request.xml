@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="10dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16dp"
+    android:id="@+id/row_item_card_view"
+    app:cardCornerRadius="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_row_item_friend_request_avatar"
+            android:layout_width="70dp"
+            android:layout_height="70dp"/>
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:weightSum="2"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="5">
+                <TextView
+                    android:textColor="#000000"
+                    android:gravity="center_vertical"
+                    android:text="Tran Van Hien"
+                    android:id="@+id/txt_row_item_friend_request_name"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <TextView
+                    android:textColor="#000000"
+                    android:text="1 tuan truoc"
+                    android:id="@+id/txt_row_item_friend_request_time"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_weight="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/row_wait_accept_request"
+                android:layout_marginRight="8dp"
+                android:weightSum="2"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/btn_row_item_friend_request_yes"
+                    android:background="@drawable/custom_button"
+                    android:textAllCaps="false"
+                    android:textColor="#FFF"
+                    android:text="Chấp nhận"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <Button
+                    android:id="@+id/btn_row_item_friend_request_no"
+                    android:background="@drawable/custom_button_grey"
+                    android:textAllCaps="false"
+                    android:text="Từ chối"
+                    android:layout_marginLeft="6dp"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>
