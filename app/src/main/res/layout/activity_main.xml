@@ -12,20 +12,18 @@
         android:layout_height="wrap_content">
         <androidx.appcompat.widget.Toolbar
             android:layout_centerHorizontal="true"
-            android:background="@color/fakebook"
+            android:background="@color/background"
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:menu="@menu/main_menu">
-            <TextView
-                android:layout_margin="15dp"
-                android:textSize="23sp"
-                android:text="FakeBook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <ImageView
+                android:src="@drawable/nunu_logo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
         </androidx.appcompat.widget.Toolbar>
         <com.google.android.material.tabs.TabLayout
-            android:background="@color/fakebook"
+            android:background="@color/background"
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

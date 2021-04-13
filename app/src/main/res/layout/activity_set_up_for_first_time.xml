@@ -10,7 +10,7 @@
         android:layout_gravity="center"
         android:id="@+id/img_avatar"
         android:layout_marginTop="20dp"
-        android:src="@drawable/fakebook"
+        android:src="@drawable/logo_sn"
         android:layout_width="200dp"
         android:layout_height="200dp"/>
     <LinearLayout

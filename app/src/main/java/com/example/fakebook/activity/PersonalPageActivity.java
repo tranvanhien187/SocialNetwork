@@ -23,6 +23,7 @@ import com.example.fakebook.adapter.FriendAdapter;
 import com.example.fakebook.adapter.PostAdapter;
 import com.example.fakebook.model.AddressPostNewFeed;
 import com.example.fakebook.model.FriendRequest;
+import com.example.fakebook.model.Message;
 import com.example.fakebook.model.Notification;
 import com.example.fakebook.model.Post;
 import com.example.fakebook.model.User;
@@ -107,6 +108,8 @@ public class PersonalPageActivity extends AppCompatActivity {
 
                 addPostToFriendNewFeed();
 
+                addLatestMessage();
+
                 btnAcceptFriend.setVisibility(View.GONE);
                 btnFriend.setVisibility(View.VISIBLE);
 
@@ -137,6 +140,9 @@ public class PersonalPageActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
+
+
+
     public void initWidget(){
         imgAvatar=(CircleImageView) findViewById(R.id.img_personal_page_avatar);
         txtName=(TextView) findViewById(R.id.txt_personal_page_name);
@@ -185,6 +191,7 @@ public class PersonalPageActivity extends AppCompatActivity {
             }
         });
     }
+
     public void setUpPersonalInformation(){
         mFirebaseFirestore.collection("Users").document(emailPage)
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -214,6 +221,7 @@ public class PersonalPageActivity extends AppCompatActivity {
             }
         });
     }
+
     public void setUpMyPostList(String name,String avatar){
         mAddressMyPostList=new ArrayList<>();
         mMyPostAdapter=new PostAdapter(this,mAddressMyPostList,emailCurrentUser);
@@ -235,6 +243,7 @@ public class PersonalPageActivity extends AppCompatActivity {
             }
         });
     }
+
     public void sendFRequest(){
         FriendRequest friendRequest=new FriendRequest(emailCurrentUser, Calendar.getInstance().getTime());
         mFirebaseFirestore.collection("Users").document(emailPage)
@@ -247,6 +256,7 @@ public class PersonalPageActivity extends AppCompatActivity {
             }
         });
     }
+
     public void cancelAddFriend(){
         mFirebaseFirestore.collection("Users").document(emailPage)
                 .collection("FriendRequest").document(emailCurrentUser)
@@ -257,6 +267,7 @@ public class PersonalPageActivity extends AppCompatActivity {
             }
         });
     }
+
     public void setUpRelationship(){
         mFirebaseFirestore.collection("Users").document(emailCurrentUser)
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -335,7 +346,6 @@ public class PersonalPageActivity extends AppCompatActivity {
 
     }
 
-
     public void deleteFriendRequest(){
         mFirebaseFirestore.collection("Users").document(emailCurrentUser)
                 .collection("FriendRequest").document(emailPage)
@@ -346,6 +356,7 @@ public class PersonalPageActivity extends AppCompatActivity {
             }
         });
     }
+
     public void addFriendToFriendList(){
         mFirebaseFirestore.collection("Users").document(emailCurrentUser)
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -381,6 +392,15 @@ public class PersonalPageActivity extends AppCompatActivity {
         });
     }
 
+    private void addLatestMessage() {
+        mFirebaseFirestore.collection("Users").document(emailCurrentUser)
+                .collection("LatestMessage").document(emailPage)
+                .set(new Message());
+        mFirebaseFirestore.collection("Users").document(emailPage)
+                .collection("LatestMessage").document(emailCurrentUser)
+                .set(new Message());
+
+    }
     public void addPostToFriendNewFeed(){
         mFirebaseFirestore.collection("Users").document(emailCurrentUser)
                 .collection("MyPosts")

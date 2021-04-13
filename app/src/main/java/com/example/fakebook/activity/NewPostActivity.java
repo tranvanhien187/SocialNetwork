@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.fakebook.R;
+import com.example.fakebook.adapter.PictureAdapter;
 import com.example.fakebook.model.AddressPostNewFeed;
 import com.example.fakebook.model.Post;
 import com.example.fakebook.model.User;
@@ -42,7 +44,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NewPostActivity extends AppCompatActivity {
     private CircleImageView imgAvatar;
-    private ImageView imgPost;
+    private ImageView imgPost,imgBack;
     private TextView txtName;
     private EditText edtContent;
     private Button btnOk,btnAddImage;
@@ -88,21 +90,15 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle arrow click here
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -125,6 +121,7 @@ public class NewPostActivity extends AppCompatActivity {
         btnOk=(Button) findViewById(R.id.btn_submit);
         toolbar=(Toolbar) findViewById(R.id.tool_bar);
         btnAddImage=(Button) findViewById(R.id.btn_post_add_img);
+        imgBack=(ImageView) findViewById(R.id.img_back);
     }
 
     public void setUp(){
@@ -153,17 +150,19 @@ public class NewPostActivity extends AppCompatActivity {
         }else {
 
             final Date time =Calendar.getInstance().getTime();
-            final String fileName=emailCurrentUser+time.toString()
+            final String fileName=time.toString()
                     .replace(":","")
                     .replace(" ","")
                     .replace("+","");
-            StorageReference filePath=mStorageReference.child("post").child(fileName+"jpg");
+            StorageReference filePath=mStorageReference.child(emailCurrentUser).child("my_post").child(fileName+"jpg");
             filePath.putFile(mainimageURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
+
+                            addUriImage(uri);
 
                             addMyPost(uri,fileName,time);
 
@@ -228,6 +227,24 @@ public class NewPostActivity extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+    }
+    public void addUriImage(final Uri uri){
+        mFireStore.collection("Users").document(emailCurrentUser)
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                ArrayList<String> mArraylist = new ArrayList<>();
+                mArraylist.addAll(documentSnapshot.toObject(User.class).getPictureList());
+                mArraylist.add(uri.toString());
+                mFireStore.collection("Users").document(emailCurrentUser)
+                        .update("pictureList",mArraylist).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                    }
+                });
             }
         });
     }

@@ -27,12 +27,9 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
-import com.example.fakebook.MainActivity;
 import com.example.fakebook.R;
 import com.example.fakebook.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,10 +39,10 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,7 +53,7 @@ public class SettingActivity extends AppCompatActivity {
     private Spinner spinnerEducation;
     private CircleImageView imgAvatar;
     private Button btnSubmit;
-    private ImageView imgChooseImage;
+    private ImageView imgChooseImage,imgBack;
     private RadioButton radMale,radFemale,radSingle,radMarriage;
     private ProgressBar progressBar;
     private Toolbar toolbar;
@@ -117,9 +114,13 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     private void initWidget() {
@@ -139,6 +140,7 @@ public class SettingActivity extends AppCompatActivity {
         progressBar=(ProgressBar) findViewById(R.id.progressBar);
         spinnerEducation=(Spinner) findViewById(R.id.spinner_setting_education);
         toolbar=(Toolbar) findViewById(R.id.tool_bar);
+        imgBack=(ImageView) findViewById(R.id.img_back);
 
     }
 
@@ -197,13 +199,19 @@ public class SettingActivity extends AppCompatActivity {
         if(mainimageURI==null){
             handleUpdateInformation();
         }else {
-            storageReference.child("ava_image").child(emailCurrentUser+".jpg")
+             Date time = Calendar.getInstance().getTime();
+             String fileName=time.toString()
+                    .replace(":","")
+                    .replace(" ","")
+                    .replace("+","");
+            storageReference.child(emailCurrentUser).child("my_avatar").child(fileName+".jpg")
                     .putFile(mainimageURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
+                            user.addPictureUri(uri.toString());
                             user.setAvatar(uri.toString());
                             handleUpdateInformation();
                         }

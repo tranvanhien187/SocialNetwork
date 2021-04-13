@@ -197,8 +197,6 @@ public class MessageActivity extends AppCompatActivity {
         ibtnSendMessage = (ImageButton) findViewById(R.id.ibtn_send_message);
         toolbar=(Toolbar) findViewById(R.id.tool_bar);
     }
-
-
     public void setSeenLatestMessage(){
         firebaseFirestore.collection("Users").document(emailFriendToChat)
                 .collection("LatestMessage").document(emailCurrentUser)

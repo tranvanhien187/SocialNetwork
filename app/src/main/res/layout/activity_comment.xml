@@ -7,10 +7,15 @@
     tools:context=".activity.CommentActivity">
     <androidx.appcompat.widget.Toolbar
         android:layout_centerHorizontal="true"
-        android:background="@color/fakebook"
+        android:background="@color/background"
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+        android:layout_height="?attr/actionBarSize" >
+        <ImageView
+            android:src="@drawable/nunu_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+    </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
         android:layout_below="@+id/tool_bar"
         android:id="@+id/relative_layout_start"

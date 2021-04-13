@@ -15,6 +15,7 @@ public class User {
     private Boolean isOnline;
     private String lowercaseName;
     private ArrayList<String> friendList=new ArrayList<>();
+    private ArrayList<String> pictureList=new ArrayList<>();
     private HashMap<String, Integer> sentimentalRatings = new HashMap<>();  // key : uId , value : points
     public User() {
     }
@@ -28,7 +29,7 @@ public class User {
     }
 
 
-    public User(String avatar, String name, String email, String dateOfBirth, String city, String education, Boolean isMarriage, Boolean isMale) {
+    public User(String avatar, String name, String email, String dateOfBirth, String city, String education, Boolean isMarriage, Boolean isMale,String uri) {
         this.avatar = avatar;
         this.name = name;
         this.email = email;
@@ -38,6 +39,7 @@ public class User {
         this.isMarriage = isMarriage;
         this.isMale = isMale;
         this.lowercaseName = name.toLowerCase();
+        this.pictureList.add(uri);
     }
 
     public String getCity() {
@@ -128,5 +130,21 @@ public class User {
 
     public void setOnline(Boolean online) {
         isOnline = online;
+    }
+
+    public Boolean getMarriage() {
+        return isMarriage;
+    }
+
+    public void setMarriage(Boolean marriage) {
+        isMarriage = marriage;
+    }
+
+    public ArrayList<String> getPictureList() {
+        return pictureList;
+    }
+
+    public void addPictureUri(String uri) {
+        this.pictureList.add(uri);
     }
 }

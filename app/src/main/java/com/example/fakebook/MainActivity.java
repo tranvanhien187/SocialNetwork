@@ -1,19 +1,17 @@
+
+
 package com.example.fakebook;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
+
 import android.view.MenuItem;
-import android.view.View;
 
 
 import android.widget.Toast;
@@ -22,9 +20,6 @@ import com.example.fakebook.activity.SearchActivity;
 import com.example.fakebook.adapter.SectionPagerAdapter;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -52,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
     private SectionPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
+
+    private static final String TAG = "MyFirebaseMsgService";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Intent intent = new Intent(this, MyService.class);
+        startService(intent);
 
 
     }

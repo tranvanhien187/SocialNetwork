@@ -88,7 +88,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     User user=documentSnapshot.toObject(User.class);
                     Glide.with(mContext)
                             .load(user.getAvatar())
-                            .placeholder(R.drawable.fakebook)
+                            .placeholder(R.drawable.logo_sn)
                             .into(imgAvatar);
 
                     txtTime.setText(notification.getTime().toString().replace("GMT+07:00",""));

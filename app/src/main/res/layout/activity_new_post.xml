@@ -8,10 +8,16 @@
     android:orientation="vertical"
     tools:context=".activity.NewPostActivity">
     <androidx.appcompat.widget.Toolbar
-        android:background="@color/fakebook"
+        android:background="@color/background"
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
+        android:layout_height="?attr/actionBarSize">
+        <ImageView
+            android:id="@+id/img_back"
+            android:src="@drawable/nunu_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+    </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
         android:layout_marginTop="10dp"
         android:layout_marginRight="16dp"
@@ -49,7 +55,7 @@
         android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_post_avatar"
-            android:src="@drawable/fakebook"
+            android:src="@drawable/logo_sn"
             android:layout_width="50dp"
             android:layout_height="50dp"/>
         <LinearLayout

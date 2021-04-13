@@ -24,6 +24,7 @@ import com.example.fakebook.R;
 import com.example.fakebook.activity.NewPostActivity;
 import com.example.fakebook.activity.SettingActivity;
 import com.example.fakebook.adapter.FriendAdapter;
+import com.example.fakebook.adapter.PictureAdapter;
 import com.example.fakebook.adapter.PostAdapter;
 import com.example.fakebook.model.AddressPostNewFeed;
 import com.example.fakebook.model.User;
@@ -42,12 +43,13 @@ public class PersonalityFragment extends Fragment {
 
     private TextView txtName;
     private CircleImageView imgAvatar;
-    private RecyclerView recyclerViewMyPost,recyclerViewFriend;
+    private RecyclerView recyclerViewMyPost,recyclerViewFriend,recyclerViewPicture;
     private Button btnAddNewPost;
     private ImageButton btnSetting;
+    private PictureAdapter mPictureAdapter;
     private PostAdapter mMyPostAdapter;
     private FriendAdapter mFriendAdapter;
-    private ArrayList<String> mFriendList;
+    private ArrayList<String> mFriendList,mPictureList;
     private ArrayList<AddressPostNewFeed> mAddressMyPostList;
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirebaseFirestore;
@@ -78,6 +80,8 @@ public class PersonalityFragment extends Fragment {
 
         initWidget(view);
 
+        setUpPicture();
+
         setUpPersonalInformation();
 
         setUpFriend();
@@ -107,6 +111,7 @@ public class PersonalityFragment extends Fragment {
         btnSetting=(ImageButton) view.findViewById(R.id.ibtn_setting);
         recyclerViewMyPost=(RecyclerView) view.findViewById(R.id.recycle_view_my_post);
         recyclerViewFriend=(RecyclerView) view.findViewById(R.id.recycle_view_friend);
+        recyclerViewPicture=(RecyclerView) view.findViewById(R.id.recycle_view_picture);
     }
     public void setUpPersonalInformation(){
         mFirebaseFirestore.collection("Users").document(emailCurrentUser)
@@ -122,7 +127,7 @@ public class PersonalityFragment extends Fragment {
                             //.placeholder(R.drawable.loading_spinner)
                             .into(imgAvatar);
 
-                    setUpMyPostList(user.getName(),user.getAvatar());
+                    setUpMyPostList();
                 }
             }
         });
@@ -145,7 +150,7 @@ public class PersonalityFragment extends Fragment {
             }
         });
     }
-    public void setUpMyPostList(String name,String avatar){
+    public void setUpMyPostList(){
         mAddressMyPostList=new ArrayList<>();
         mMyPostAdapter=new PostAdapter(getContext(),mAddressMyPostList,emailCurrentUser);
         recyclerViewMyPost.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -160,8 +165,21 @@ public class PersonalityFragment extends Fragment {
                     AddressPostNewFeed addressPostNewFeed=i.toObject(AddressPostNewFeed.class);
                     mAddressMyPostList.add(addressPostNewFeed);
                     mMyPostAdapter.notifyDataSetChanged();
-                    Log.d("AAA",i.toString());
                 }
+            }
+        });
+    }
+    public void setUpPicture(){
+        mPictureList=new ArrayList<>();
+        mFirebaseFirestore.collection("Users").document(emailCurrentUser)
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                mPictureList.addAll(documentSnapshot.toObject(User.class).getPictureList());
+                mPictureAdapter = new PictureAdapter(getContext(),mPictureList);
+                recyclerViewPicture.setAdapter(mPictureAdapter);
+                recyclerViewPicture.setLayoutManager(new GridLayoutManager(getContext(),3));
+
             }
         });
     }

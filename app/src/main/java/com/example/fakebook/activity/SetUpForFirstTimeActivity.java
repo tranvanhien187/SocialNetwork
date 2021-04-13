@@ -35,6 +35,8 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -53,6 +55,7 @@ public class SetUpForFirstTimeActivity extends AppCompatActivity {
     StorageReference storageReference;
     FirebaseStorage firebaseStorage;
     FirebaseAuth mAuth;
+    String emailCurrentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,17 +129,21 @@ public class SetUpForFirstTimeActivity extends AppCompatActivity {
         }
         else{
             final String email=mAuth.getCurrentUser().getEmail();
-            final String emailCurrentUser=email.substring(0,email.length()-"@gmail.com".length());
-            String fileName=emailCurrentUser;
+            emailCurrentUser=email.substring(0,email.length()-"@gmail.com".length());
+            final Date time = Calendar.getInstance().getTime();
+            final String fileName=time.toString()
+                    .replace(":","")
+                    .replace(" ","")
+                    .replace("+","");
 
-            StorageReference filePath= storageReference.child("ava_image").child(fileName+".jpg");
+            StorageReference filePath= storageReference.child(emailCurrentUser).child("my_avatar").child(fileName+".jpg");
             filePath.putFile(mainimageURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            User cur=new User(uri.toString(),name,emailCurrentUser,day+"/"+month+"/"+year,homeTown,education,isMarriage,isMale);
+                            User cur=new User(uri.toString(),name,emailCurrentUser,day+"/"+month+"/"+year,homeTown,education,isMarriage,isMale,uri.toString());
                             firebaseFirestore.collection("Users").document(emailCurrentUser)
                                     .set(cur)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -232,4 +239,5 @@ public class SetUpForFirstTimeActivity extends AppCompatActivity {
             }
         }
     };
+
 }

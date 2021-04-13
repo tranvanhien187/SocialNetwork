@@ -1,6 +1,7 @@
 package com.example.fakebook.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,10 @@ public class MessageFragment extends Fragment {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         for(DocumentChange doc:value.getDocumentChanges()){
+
+                            if(doc.getDocument().toObject(Message.class).getMessage()==null){
+                                continue;
+                            }
                             if(doc.getType()==DocumentChange.Type.ADDED){
                                 arrayLatest.add(0,doc.getDocument().toObject(Message.class));
                                 latestMessageAdapter.notifyDataSetChanged();

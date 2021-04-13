@@ -9,10 +9,16 @@
     tools:context=".activity.SettingActivity">
     <androidx.appcompat.widget.Toolbar
         android:layout_centerHorizontal="true"
-        android:background="@color/fakebook"
+        android:background="@color/background"
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" >
+        <ImageView
+            android:id="@+id/img_back"
+            android:src="@drawable/nunu_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+    </androidx.appcompat.widget.Toolbar>
     <RelativeLayout
         android:layout_marginTop="10dp"
         android:layout_width="120dp"
@@ -20,7 +26,7 @@
         android:layout_gravity="center_horizontal">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_setting_avatar"
-            android:src="@drawable/fakebook"
+            android:src="@drawable/logo_sn"
             android:layout_width="120dp"
             android:layout_height="120dp" />
         <ImageView
