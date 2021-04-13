@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class PersonalPageActivity extends AppCompatActivity {
     private TextView txtName,txtBirthDate,txtSex,txtEmail,txtCity,txtEducation,txtRelationship;
     private Button btnAddFriend,btnCancelAddFriend,btnFriend,btnAcceptFriend;
     private ImageButton ibtnMessage,ibtnInfor;
+    private ImageView imgBack;
     private CircleImageView imgAvatar;
     private LinearLayout linearInfor;
     private RecyclerView recyclerViewMyPost,recyclerViewFriend;
@@ -55,7 +57,6 @@ public class PersonalPageActivity extends AppCompatActivity {
     private FirebaseFirestore mFirebaseFirestore;
     private String  emailPage;
     private String emailCurrentUser;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,9 +137,12 @@ public class PersonalPageActivity extends AppCompatActivity {
             }
         });
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
@@ -159,10 +163,9 @@ public class PersonalPageActivity extends AppCompatActivity {
         ibtnMessage=(ImageButton) findViewById(R.id.ibtn_page_message);
         ibtnInfor=(ImageButton)  findViewById(R.id.ibtn_page_infor);
         linearInfor=(LinearLayout) findViewById(R.id.linear_infor);
-        toolbar=(Toolbar) findViewById(R.id.tool_bar);
         recyclerViewMyPost=(RecyclerView) findViewById(R.id.recycle_view_personal_page_my_post);
         recyclerViewFriend=(RecyclerView) findViewById(R.id.recycle_view_personal_page_friend);
-
+        imgBack=(ImageView) findViewById(R.id.img_back);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

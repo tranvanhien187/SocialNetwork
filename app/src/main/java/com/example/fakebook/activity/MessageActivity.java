@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.fakebook.R;
@@ -35,20 +36,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MessageActivity extends AppCompatActivity {
-    String emailFriendToChat;
-    RecyclerView recyclerView;
-    MessageAdapter adapter;
-    ArrayList<Message> messageArrayList = new ArrayList<>();
-    EditText edtTypeMessage;
-    ImageButton ibtnSendMessage;
-    private Toolbar toolbar;
+    private String emailFriendToChat;
+    private RecyclerView recyclerView;
+    private MessageAdapter adapter;
+    private ArrayList<Message> messageArrayList = new ArrayList<>();
+    private EditText edtTypeMessage;
+    private ImageButton ibtnSendMessage;
+    private ImageView imgBack;
 
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    ;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    String emailTmp = mAuth.getCurrentUser().getEmail();
-    String emailCurrentUser = emailTmp.substring(0, emailTmp.length() - "@gmail.com".length());
+    private String emailTmp = mAuth.getCurrentUser().getEmail();
+    private String emailCurrentUser = emailTmp.substring(0, emailTmp.length() - "@gmail.com".length());
 
     boolean isFirst = true;
 
@@ -70,9 +70,7 @@ public class MessageActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
 
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
@@ -97,6 +95,14 @@ public class MessageActivity extends AppCompatActivity {
                 }
             }
         });
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
     }
 
@@ -195,7 +201,7 @@ public class MessageActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycle_view_message);
         edtTypeMessage = (EditText) findViewById(R.id.edt_type_message);
         ibtnSendMessage = (ImageButton) findViewById(R.id.ibtn_send_message);
-        toolbar=(Toolbar) findViewById(R.id.tool_bar);
+        imgBack = (ImageView) findViewById(R.id.img_back);
     }
     public void setSeenLatestMessage(){
         firebaseFirestore.collection("Users").document(emailFriendToChat)

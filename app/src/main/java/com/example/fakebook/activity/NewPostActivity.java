@@ -54,7 +54,6 @@ public class NewPostActivity extends AppCompatActivity {
     private FirebaseFirestore mFireStore;
     private StorageReference mStorageReference;
     private String emailCurrentUser;
-    private Toolbar toolbar;
 
 
     @Override
@@ -119,7 +118,6 @@ public class NewPostActivity extends AppCompatActivity {
         txtName=(TextView)findViewById(R.id.txt_post_name);
         edtContent=(EditText) findViewById(R.id.edt_post_content);
         btnOk=(Button) findViewById(R.id.btn_submit);
-        toolbar=(Toolbar) findViewById(R.id.tool_bar);
         btnAddImage=(Button) findViewById(R.id.btn_post_add_img);
         imgBack=(ImageView) findViewById(R.id.img_back);
     }
